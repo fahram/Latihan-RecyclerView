@@ -1,26 +1,36 @@
 package com.fahram.latihanrecyclerview
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class DistroAdapter(private val listDistro: ArrayList<Distro>) :
     RecyclerView.Adapter<DistroAdapter.ListViewHolder>() {
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        var ivLogo: ImageView = itemView.findViewById(R.id.iv_logo)
+        var tvName: TextView = itemView.findViewById(R.id.tv_name)
+        var tvOrigin: TextView = itemView.findViewById(R.id.tv_origin)
+        var tvBase: TextView = itemView.findViewById(R.id.tv_base)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListViewHolder {
-        TODO("Not yet implemented")
+        val view: View = LayoutInflater.from(parent.context)
+            .inflate(R.layout.distro_item, parent, false)
+        return ListViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        val (name, origin, base, logo) = listDistro[position]
+        holder.tvName.text = name
+        holder.tvOrigin.text = origin
+        holder.tvBase.text = base
+        holder.ivLogo.setImageResource(logo)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = listDistro.size
 
 }
