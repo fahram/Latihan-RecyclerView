@@ -1,5 +1,6 @@
 package com.fahram.latihanrecyclerview
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,7 +18,9 @@ class MainActivity : AppCompatActivity() {
 
         list.addAll(listDistros)
         rvDistro.layoutManager = LinearLayoutManager(this)
-        val distroAdapter = DistroAdapter(list)
+        val distroAdapter = DistroAdapter(list){
+                data -> showSelectedDistro(data)
+        }
         rvDistro.adapter = distroAdapter
     }
     private val listDistros: ArrayList<Distro>
@@ -40,4 +43,10 @@ class MainActivity : AppCompatActivity() {
             }
             return listDistro
         }
+
+    private fun showSelectedDistro(data: Distro) {
+        val intent = Intent(this@MainActivity, DetailActivity::class.java)
+        intent.putExtra("DISTRO", data)
+        startActivity(intent)
+    }
 }

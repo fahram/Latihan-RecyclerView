@@ -7,7 +7,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class DistroAdapter(private val listDistro: ArrayList<Distro>) :
+class DistroAdapter(private val listDistro: ArrayList<Distro>,
+                    private val onItemClick: (Distro) -> Unit) :
     RecyclerView.Adapter<DistroAdapter.ListViewHolder>() {
 
     class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,6 +30,9 @@ class DistroAdapter(private val listDistro: ArrayList<Distro>) :
         holder.tvOrigin.text = origin
         holder.tvBase.text = base
         holder.ivLogo.setImageResource(logo)
+        holder.itemView.setOnClickListener {
+            onItemClick(listDistro[position])
+        }
     }
 
     override fun getItemCount(): Int = listDistro.size
