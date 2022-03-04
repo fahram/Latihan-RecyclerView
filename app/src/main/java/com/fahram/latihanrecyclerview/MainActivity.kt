@@ -7,23 +7,24 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.fahram.latihanrecyclerview.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var rvDistro: RecyclerView
+    lateinit var binding: ActivityMainBinding
     private val list = ArrayList<Distro>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        rvDistro = findViewById(R.id.rv_distro)
-        rvDistro.setHasFixedSize(true)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.rvDistro.setHasFixedSize(true)
 
         list.addAll(listDistros)
-        rvDistro.layoutManager = LinearLayoutManager(this)
+        binding.rvDistro.layoutManager = LinearLayoutManager(this)
         val distroAdapter = DistroAdapter(list){
                 data -> showSelectedDistro(data)
         }
-        rvDistro.adapter = distroAdapter
+        binding.rvDistro.adapter = distroAdapter
     }
     private val listDistros: ArrayList<Distro>
         get() {
